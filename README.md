@@ -23,7 +23,7 @@ http://你的域名.com
 
 http://你的域名.com/admin
 
-用户名和密码:
+用户名:admin@admin.com 密码:123456
 
 
 接下来的开发思路
