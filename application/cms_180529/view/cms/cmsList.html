@@ -1,0 +1,46 @@
+{extend name="../../common/view/Public/base" /}
+{block name="body"}
+<div id="page-wrapper">
+<div class="header">
+    <h1 class="page-header">
+        文章管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{:url('admin/index/index')}">Home</a></li>
+        <li><a href="{:url('cms/cms/cmsList')}">内容列表</a></li>
+        <li class="active">内容列表</li>
+    </ol>
+    <div class="row">
+        <div class="col-sm-12 text-right" >
+            <form action="{:url('cms/cms/cmsList')}" method="post">
+            <input type="text" name="search" value="{$search}" style="width: 200px;"><input type="submit" value="submit" style="width: 100px;align-self: right">
+            </form>
+        </div>
+    </div>
+</div>
+<div id="page-inner">
+    <table class="table table-hover">
+        <tr>
+            <td width="10%">序号</td>
+            <td width="30%">标题</td>
+            <td width="10%">栏目</td>
+            <td width="15%">创建时间</td>
+            <td width="15%">更新时间</td>
+            <td width="20%">操作</td>
+        </tr>
+        {volist name="$articleInfo" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.title}</td>
+            <td>{$vo.cate_id|getCategoryName}</td>
+            <td>{$vo.create_time}</td>
+            <td>{$vo.update_time}</td>
+            <td><a class="btn btn-warning btn-sm" href="{:url('cms/cms/articleEdit',['id'=>$vo.id])}">置顶</a>&nbsp;<a class="btn btn-success btn-sm" href="{:url('cms/cms/articleEdit',['id'=>$vo.id])}">热点</a>&nbsp;<a class="btn btn-info btn-sm" href="{:url('cms/cms/articleEdit',['id'=>$vo.id])}">编辑</a>&nbsp;<a class="btn btn-danger btn-sm" href="{:url('cms/cms/articleDel',['id'=>$vo.id])}">删除</a></td>
+        </tr>
+        {/volist}
+        <tr>
+            <td colspan="6">{$articleInfo|raw}</td>
+        </tr>
+    </table>
+
+{/block}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>{$siteInfo.sitename|default="网站名称"}</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="keywords" content="{$siteInfo.keywords|default='网站关键字'}">
+  <meta name="description" content="{$siteInfo.desc|default='网站描述'}">
+
+  <!-- Favicons -->
+  <!--<link href="/static/yc/img/favicon.png" rel="icon">-->
+  <!--<link href="/static/yc/img/apple-touch-icon.png" rel="apple-touch-icon">-->
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/static/yc/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/static/yc/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/static/yc/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/yc/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/static/yc/lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+  <link rel="stylesheet" href="/static/yc/styles/direction-reveal.css">
+  <!-- Main Stylesheet File -->
+  <link href="/static/yc/css/style.css" rel="stylesheet">
+
+  <!-- Matomo -->
+  <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+          var u="//count.yc78.com/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', '1']);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+  </script>
+  <!-- End Matomo Code -->
+</head>
+
+<body>
+
+<!--==========================
+Header
+============================-->
+<header id="header" class="header-fixed">
+  <div class="container">
+
+    <div id="logo" class="pull-left">
+      <h1><a href="#intro" class="scrollto"><img src="/static/logo/logo.gif" style="width: 80px;height: 30px">&nbsp;{$siteInfo.sitename|default="网站名称"}</a></h1>
+
+    </div>
+
+{include file="public:nav"}
+  </div>
+</header><!-- #header -->

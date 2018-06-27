@@ -1,0 +1,31 @@
+<!--/. NAV TOP  -->
+<nav class="navbar-default navbar-side navbar-fixed-top" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+            {volist name="$pBarInfo" id="vo" key="i"}
+            <li>
+            <a href="#"><i class="{$vo.icon}"></i> {$vo.title}<span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+                {volist name="$aBarInfo" id="vos" key="k"}
+                {eq name="$vos.pid" value="$vo.id"}
+                <li>
+                    <a href="{:url($vos.href)}" onclick="GetRequest()">{$vos.title}</a>
+                </li>
+                {/eq}
+                {/volist}
+            </ul>
+            </li>
+            {/volist}
+        </ul>
+
+    </div>
+
+</nav>
+<nav class="navbar-bottom navbar-fixed-bottom">
+    <blockquote style="color:#8C8C8C">
+        <h6>{$Think.session.company|default="公司名称"}</h6>
+        <h6>Copyright &copy; {$Think.session.years|default="2016"} All rights reserved.</h6>
+        <h6>当前版本:{$Think.session.version|default="Ver 0.1.0509"}</h6>
+    </blockquote>
+</nav>
+<!-- /. NAV SIDE  -->

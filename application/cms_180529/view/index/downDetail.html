@@ -1,0 +1,149 @@
+{extend name="Public/base" /}
+{block name="body"}
+<div class="page-header">
+    <h1>  <small> </small></h1>
+</div>
+<div  class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">栏目列表</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-pills">
+                        {volist name="categoryInfo" id="vo_cate"  empty="暂时没有数据"}
+                        <li role="presentation"><a href="/cms/index/categoryList?tpl={$_GET['tpl']}&id={$vo_cate.id}">{$vo_cate.name}</a></li>
+                        {/volist}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-default lasest-update">
+                <!-- S 最近更新 -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">热门文章</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        {volist name="articleHotList" id="vo_hot"  empty="暂时没有数据"}
+                        <li>
+                            <span>[<a href="/cms/index/categoryList?tpl={$vo_hot.cate_id|getCategoryTpl}&id={$vo_cate.id}">{$vo_hot.cate_id|getCategoryName}</a>]</span>
+                            <a class="link-dark" href="/cms/index/{$vo_hot.cate_id|getCategoryTpl}Detail?tpl={$vo_hot.cate_id|getCategoryTpl}&id={$vo_hot.id}" title="{$vo_hot.title}">{$vo_hot.title}</a>
+                        </li>
+                        {/volist}
+                    </ul>
+                </div>
+                <!-- E 最近更新 -->
+            </div>
+
+            <div class="panel panel-default lasest-update">
+                <!-- S 最近更新 -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">最近更新</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-unstyled">
+                        {volist name="articleNewList" id="vo_new"  empty="暂时没有数据"}
+                        <li>
+                            <span>[<a href="/cms/index/categoryList?tpl={$vo_new.cate_id|getCategoryTpl}&id={$vo_new.id}">{$vo_new.cate_id|getCategoryName}</a>]</span>
+                            <a class="link-dark" href="/cms/index/{$vo_new.cate_id|getCategoryTpl}Detail?tpl={$vo_new.cate_id|getCategoryTpl}&id={$vo_new.id}" title="{$vo_new.title}">{$vo_new.title}</a>
+                        </li>
+                        {/volist}
+                    </ul>
+                </div>
+                <!-- E 最近更新 -->
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-8">
+            <div class="article-list-main">
+                <ol class="breadcrumb">
+                    <li><a href="/cms?tpl=">Home</a></li>
+                    <li><a href="/cms/index/categoryList?tpl={$articleInfo.cate_id|getCategoryTpl}&id={$articleInfo.cate_id}">{$articleInfo.cate_id|getCategoryName}</a></li>
+                    <li class="active">正文</li>
+                </ol>
+                <div class="article-metas">
+                <div class="page-header">
+                    <h2>{$articleInfo.title}</h2>
+                </div>
+                <div class="pull-left">
+                    发布者：<span itemprop="keywords"><a href="#" rel="tag">XXX</a></span>&nbsp;&nbsp;
+                    时间：<span>{$articleInfo.create_time}</span>
+                </div>
+                <div class="pull-right">
+                    <div class="sns">
+                        <!--阅读量-->
+                        <span class="views-num" title="阅读量"><i class="fa fa-eye fa-lg"></i>{$articleInfo.pv}</span>
+                        <!--点赞-->
+                        <span class="like-num" title="点赞"><i class="fa fa-thumbs-o-up fa-lg"></i><span class="js-like-num">{$articleInfo.id|getArticleLike}</span></span>
+                    </div>
+                </div>
+                </div>
+                <div class="article-text">
+                    {:htmlspecialchars_decode($articleInfo.content)}
+                </div>
+                <div class="article-text">
+                    下载地址:<a href="/uploads/{$articleInfo.title_img}">下载</a>
+                </div>
+                <div class="product-like-wrapper">
+                    <!-- S 赞踩 -->
+                    <a class="product-like" data-action="vote" data-type="like" data-id="35" href="javascript:;" title="赞"><i class="fa fa-thumbs-up"></i></a>
+                    <div class="like-bar-wrapper" data-likes="20" data-dislikes="14">
+                        <div class="bar"><span style="width: 58.823529411765%;"></span></div>
+                        <div class="num"><i>20</i> : <span>14</span></div>
+                    </div>
+                    <a class="product-dislike" data-action="vote" data-type="dislike" data-id="35" href="javascript:;" title="踩"><i class="fa fa-thumbs-down"></i></a>
+                    <!-- E 赞踩 -->
+                </div>
+                <div class="entry-meta">
+                    <ul class="entry-relate-links">
+                        <!-- S 上一篇下一篇 -->
+                        <li>
+                            <span>上一篇 &gt;：</span>
+                            <a href="/cms/a/34.html">Leap Motion AR头显看起来很疯狂但可能是奇迹</a>
+                        </li>
+                        <!-- E 上一篇下一篇 -->
+                    </ul>
+                </div>
+
+            </div>
+            <div class="panel panel-default" id="comments">
+                <div class="panel-heading">
+                    评论列表(2)
+                </div>
+                <div class="panel-body">
+                    <div id="comment-container">
+                        <!-- S 评论列表 -->
+                        <div id="commentlist">
+                        </div>
+                        <!-- E 评论列表 -->
+
+                        <!-- S 评论分页 -->
+                        <div id="commentpager" class="text-center">
+                        </div>
+                        <!-- E 评论分页 -->
+
+                        <!-- S 发表评论 -->
+                        <div id="postcomment">
+                            <h3>发表评论 <a href="javascript:;"><small>取消回复</small></a></h3>
+                            <form action="/addons/cms/comment/post.html" method="post" id="postform">
+                                <input type="hidden" name="__token__" value="6f26e826ac4a9d159020c354a64a4280">            <input type="hidden" name="type" value="archives">
+                                <input type="hidden" name="aid" value="35">
+                                <input type="hidden" name="pid" id="pid" value="0">
+                                <div class="form-group">
+                                    <textarea name="content" class="form-control" disabled="" placeholder="请登录后再发表评论" id="commentcontent" cols="6" rows="5" tabindex="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <a href="/index/user/login.html" class="btn btn-primary">登录</a>
+                                    <a href="/index/user/register.html" class="btn btn-success">注册新账号</a>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- E 发表评论 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

@@ -1,0 +1,45 @@
+<!--<div class="navbar-wrapper">-->
+    <!--<div class="container">-->
+        <nav class="navbar navbar-inverse navbar-static-top navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">{$siteName|default="站点名称"}CMS</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li {eq name="$_GET['tpl']" value=""}class="active"{/eq}><a href="/cms?tpl=">首页</a></li>
+                        <li {eq name="$_GET['tpl']" value="article"}class="active"{/eq}><a href="/cms/index/categorylist?tpl=article">文章</a></li>
+                        <li {eq name="$_GET['tpl']" value="down"}class="active"{/eq}><a href="/cms/index/categorylist?tpl=down">下载</a></li>
+                        <li {eq name="$_GET['tpl']" value="xiaoshuo"}class="active"{/eq}><a href="/cms/index/categorylist?tpl=xiaoshuo">小说</a></li>
+                        <li><a href="/#about">关于我们</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">服务介绍 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">插件定制服务</a></li>
+                                <li><a href="#">软件技术服务</a></li>
+                                <li><a href="#">软件定制服务</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员登录 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">登录</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">注册</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    <!--</div>-->
+<!--</div>-->

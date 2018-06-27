@@ -1,0 +1,59 @@
+{extend name="../../common/view/public/base" /}
+{block name="body"}
+<div id="page-wrapper">
+<div class="header">
+    <h1 class="page-header">
+        团队管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}">Home</a></li>
+        <li><a href="{:url('cms/cmsList')}">内容管理</a></li>
+        <li class="active">团队修改</li>
+
+    </ol>
+</div>
+<div id="page-inner">
+    <form action="{:url('cms/cms/teamEdit')}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>姓名</label>
+            <input type="text" name="title" width="500" class="form-control" value="{$articleInfo.title}">
+        </div>
+        <div class="form-group">
+            <label>职位</label>
+            <input type="text" name="job_title" width="500" class="form-control" value="{$articleInfo.job_title}">
+        </div>
+        <div class="form-group">
+            <label>头衔</label>
+            <input type="text" name="job_title_header" width="500" class="form-control" value="{$articleInfo.job_title_header}">
+        </div>
+        <div class="form-group">
+            <label>内容栏目</label>
+            <select name="cate_id" class="form-control">
+                <option value="">=>请选择栏目</option>
+                {volist name="cateInfo" id="vo"}
+                <option value="{$vo.id}" {eq name="$articleInfo.cate_id" value="$vo.id"}selected{/eq}>{$vo.name}</option>
+                {/volist}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>照片</label>
+            <input type="file" name="title_img" width="500" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>个人简介</label>
+            <textarea id="editor_id" name="content"  cols="30" rows="10" class="form-control">{$articleInfo.content}</textarea>
+        </div>
+        <input type="hidden" name="user_id" value="{$Think.session.user_id}">
+        <input type="hidden" name="id" value="{$articleInfo.id}">
+        <button type="submit" class="btn btn-default">保存</button>
+    </form>
+
+    <script charset="utf-8" src="/static/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="/static/kindeditor/lang/zh-CN.js"></script>
+    <script>
+        KindEditor.ready(function(K) {
+            window.editor = K.create('#editor_id');
+        });
+    </script>
+
+{/block}

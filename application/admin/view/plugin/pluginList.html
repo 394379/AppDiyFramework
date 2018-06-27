@@ -1,0 +1,56 @@
+{extend name="../../common/view/public/base" /}
+{block name="body"}
+<div id="page-wrapper">
+  <div class="header">
+                    <h1 class="page-header">
+                        插件管理
+                    </h1>
+        <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}">Home</a></li>
+        <li><a href="{:url('plugin/pluginList')}">插件管理</a></li>
+            <li><a href="{:url('plugin/market')}" style="color: red">插件市场</a></li>
+        <li class="active">[已安装]插件列表</li>
+
+      </ol>
+
+</div>
+<div id="page-inner">
+    <table  class="table table-hover" style="background-color: #FFFFFF">
+        <thead>
+        <tr style="background-color:#3E3E3E">
+            <th style="color:#FFFFFF" width="60">ID</th>
+            <th style="color:#FFFFFF" width="160">名称</th>
+            <th style="color:#FFFFFF">描述</th>
+            <th style="color:#FFFFFF">版本</th>
+            <th style="color:#FFFFFF" width="170">安装时间</th>
+            <th style="color:#FFFFFF" width="170">更新时间</th>
+            <th style="color:#FFFFFF" width="120">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="pluginsList" id="plugin"}
+            <tr>
+                <th scope="row">{$plugin.id}</th>
+                <td>{$plugin.name}</td>
+                <td>{$plugin.description}</td>
+                <td>{$plugin.version}</td>
+                <td>{$plugin.create_time}</td>
+                <td>{$plugin.update_time}</td>
+                <td>
+                    <a class="btn btn-xs btn-danger" href="uninstall?id={$plugin.id}" onclick="return confirm('确认卸载?')">卸载</a>
+                </td>
+            </tr>
+        {/volist}
+        {empty name="pluginsList"}
+            <tr>
+                <td colspan="10" align="center">没有安装插件！</td>
+            </tr>
+        {/empty}
+        </tbody>
+    </table>
+
+
+
+
+
+    {/block}

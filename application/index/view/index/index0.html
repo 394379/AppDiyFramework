@@ -1,0 +1,144 @@
+{extend name="Public/base" /}
+{block name="body"}
+
+<main id="main">
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about" class="section-bg">
+        <div class="container-fluid">
+            <div class="section-header">
+                <p><h3 class="section-title">关于我们</h3></p>
+                <span class="section-divider"></span>
+                <p class="section-description">
+                    客户的感动源于我们高度的责任感、敬业精神与专业素质。
+                </p>
+            </div>
+
+            <div class="row">
+                <!--<label  class="col-lg-1 control-label"></label>-->
+                <div class="col-lg-6 about-img wow fadeInLeft">
+                    <img src="/static/yc/img/about-img.jpg" alt="">
+                </div>
+
+                <div class="col-lg-6 content about-img wow fadeInRight">
+                    {:htmlspecialchars_decode($siteInfo.about_us)}
+                </div>
+                <!--<label  class="col-lg-1 control-label"></label>-->
+            </div>
+    </section><!-- #about -->
+
+
+    <!--==========================
+      Gallery Section
+    ============================-->
+    <section id="gallery">
+        <div class="container-fluid">
+            <div class="section-header">
+                <p><h3 class="section-title">精彩案例</h3></p>
+                <span class="section-divider"></span>
+                <p class="section-description">
+                    帮助客户不断创造价值，才能实现自身价值的升华，元诚软件助力您企业的发展，实现共赢。
+                </p>
+            </div>
+            <div class="direction-reveal direction-reveal--grid-bootstrap direction-reveal--demo-bootstrap">
+                <div class="row no-gutters">
+                    {volist name="caseInfo" id="vo" empty="empty"}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="gallery-item wow fadeInUp">
+                        <a href="#" class="direction-reveal__card">
+                            <img src="/uploads/{$vo.img}" style="width: 500px;height: 400px;" alt="Image" class="about-img img-fluid">
+                            <div class="direction-reveal__overlay">
+                                <h3 class="direction-reveal__title">{$vo.title}</h3>
+                                <p class="direction-reveal__text">{:$vo.content}</p>
+                            </div>
+                        </a>
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+
+        </div>
+    </section><!-- #gallery -->
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact">
+        <div class="container">
+            <div class="row wow fadeInUp">
+
+                <div class="col-lg-4 col-md-4">
+                    <div class="contact-about">
+                        <h3>{$siteInfo.sitename|default="网站名称"}</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$siteInfo.about_profile|default="网站简介"}
+                        </p>
+                        <div class="social-links">
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+                    <div class="info">
+                        <div>
+                            <i class="ion-ios-location-outline"></i>
+                            <p>{$siteInfo.address|default="成都市天府新区南湖北路121号"}</p>
+                        </div>
+
+                        <div>
+                            <i class="ion-ios-email-outline"></i>
+                            <p>{$siteInfo.email|default="fw#yc.sc.cn（请把#换成@）"}</p>
+                        </div>
+
+                        <div>
+                            <i class="ion-ios-telephone-outline"></i>
+                            <p>{$siteInfo.phone|default="028-89991708"}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-md-8">
+                    <div class="form">
+                        <div id="sendmessage">Your message has been sent. Thank you!</div>
+                        <div id="errormessage"></div>
+                        <form action="{:url('index/guestSave')}" method="post" role="form">
+                            <div class="form-row">
+                                <div class="form-group col-lg-6">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="姓名" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="邮件" data-rule="email" data-msg="Please enter a valid email" />
+                                    <div class="validation"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="title" id="subject" placeholder="题目" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <div class="validation"></div>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="content" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="内容"></textarea>
+                                <div class="validation"></div>
+                            </div>
+                            <div class="text-center"><input class="btn-primary" type="submit" name="submit" value="留言"></div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- #contact -->
+
+</main>
+
+{/block}
+
