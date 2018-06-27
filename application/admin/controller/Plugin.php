@@ -53,9 +53,12 @@ class Plugin extends Base
     public function remoteCheck()
     {
         $this->noLogin();
-        $data = Request::param();
-        //$url = "http://dapi.yc78.com/index/plugin/getVerZip?name=".input('name');//不严格，要检查订单是否完成，是否安装过？
-        $url = "http://api.ycsoft.cm/index/login/remoteCheck?user_email=".$data['email']."&user_password=".$data['password'];//不严格，要检查订单是否完成，是否安装过？
+        $user_email=Request::param('email');
+        $user_password=Request::param('password');
+        if($user_email=="" || $user_password==""){
+            $this->error('用户名或密码错误，请重新登录！','/admin/plugin/market','','1');exit;
+        }
+        $url = "http://api.ycsoft.cm/index/login/remoteCheck?user_email=".$user_email."&user_password=".$user_password;
         $httpService = new HttpService();
         $resInfo = $httpService->download($url);
         //halt($resInfo);
