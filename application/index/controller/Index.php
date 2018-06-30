@@ -34,11 +34,8 @@ class Index extends Base
     //前台留言
     public function guestSave()
     {
-        //$data=Request::param();
-        //halt($data);
         if(Request::isAjax()){
             $data=Request::param();
-            //halt($data);
             if(guestModel::create($data,true)){
                 return ['status'=>1,'message'=>'留言成功！'];
             }
