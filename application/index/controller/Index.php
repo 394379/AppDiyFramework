@@ -29,8 +29,6 @@ class Index extends Base
         $this->assign('email',$email);
         $this->assign('phone',$phone);
 
-        //$this->view->assign('siteInfo',$siteInfo);
-
         return $this->view->fetch('index');
     }
     //前台留言
@@ -49,20 +47,6 @@ class Index extends Base
             return ['status'=>0,'message'=>'留言失败'];
         }
 
-    }
-
-    // 扫码支付
-    public function pay()
-    {
-        $params = [
-            'body' => '支付测试',
-            'out_trade_no' => mt_rand().time(),
-            'total_fee' => 1,
-            'product_id' => time(),
-        ];
-        db('order')->insert($params);
-        $result = \wxpay\NativePay::getPayImage($params);
-        echo $result;
     }
 
 
