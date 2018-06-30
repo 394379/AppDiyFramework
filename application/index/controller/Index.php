@@ -6,7 +6,6 @@ namespace app\index\controller;
 use app\common\controller\Base;
 use app\common\model\guestModel;
 use app\common\model\siteModel;
-use app\common\model\casesModel;
 use think\facade\Request;
 
 class Index extends Base
@@ -14,15 +13,6 @@ class Index extends Base
     public function index()
     {
         $siteInfo = siteModel::get(1);
-
-        $caseInfo = casesModel::where('status',1)->select();
-
-        if($caseInfo==null)
-        {
-            $this->error('未找到数据');
-        }else{
-            $this->view->assign('caseInfo',$caseInfo);
-        }
 
         //halt($siteInfo);
         $siteName = $siteInfo['sitename'];
