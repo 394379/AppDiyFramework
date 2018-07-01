@@ -1,6 +1,0 @@
-{
-    "require": {
-        "topthink/think-captcha": "^2.0",
-        "yansongda/pay": "^1.3"
-    }
-}
