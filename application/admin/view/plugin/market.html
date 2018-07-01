@@ -31,12 +31,13 @@
               {else /}
               <div class="control-group">
                   <div class="col-md-6 text-right">
-                      <label class="control-label" contenteditable="true" for="inputEmail"> </label>
-                      <div class="controls"><label class="control-label" contenteditable="true">用户远程市场登录信息：</label></div>
+                      <label class="control-label" for="inputEmail"> </label>
+                      <div class="controls"><label class="control-label">用户远程市场登录信息：</label></div>
                   </div>
                   <div class="col-md-3 text-left">
-                      <label class="control-label" contenteditable="true" for="inputPassword"> </label>
-                      <div class="controls"><label class="control-label" contenteditable="true">{$Think.session.remote_user_email}已登录</label></div>
+                      <label class="control-label" for="inputPassword"> </label>
+                      <div class="controls"><label class="control-label">{$Think.session.remote_user_email}已登录,<a
+                              href="{:url('/admin/plugin/remoteLogout')}">注销</a></label></div>
                   </div>
                   <div class="col-md-3 text-left">
                       <label class="control-label" contenteditable="true" for="inputPassword"> </label>

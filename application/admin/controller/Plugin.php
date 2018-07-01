@@ -53,7 +53,8 @@ class Plugin extends Base
         $url = Config::get('app_loginCheck')."remoteCheck?user_email=".$user_email."&user_password=".$user_password;
         $httpService = new HttpService();
         $resInfo = $httpService->download($url);
-        if($resInfo!="NULL" || $resInfo!=""){
+        //dump($resInfo);
+        if($resInfo!=0){
             Session::set('remote_user_id',$resInfo[0]['id']);
             Session::set('remote_user_email',$resInfo[0]['email']);
             $this->success('登录市场成功！','/admin/plugin/market','','1');
@@ -61,7 +62,15 @@ class Plugin extends Base
             $this->error('用户名或密码错误，请重新登录！','/admin/plugin/market','','1');
         }
     }
-
+    //市场登出
+    public function remoteLogout()
+    {
+        Session::set('remote_user_id','');
+        Session::set('remote_user_email','');
+        if(Session::get('remote_user_id')=="" && Session::get('remote_user_email')==""){
+            $this->success('市场退出成功！','/admin/plugin/market','','1');
+        }
+    }
     //插件安装（重写安装最新20180517）
     public function install()
     {
@@ -85,11 +94,11 @@ class Plugin extends Base
         $fileService = new FileService();
         $fileInfo = $fileService->getFile($fileService->dir_replace($url),$targetDir,$fileName,0);
         if($fileInfo==""){$this->error('插件下载失败!请检查网络。');}
-        //halt($fileInfo);
+        //dump($fileInfo);
         //解压
         $zip = new \ZipArchive;
         $res = $zip->open($fileInfo['save_path']);
-        //halt($res);
+        //halt($res);//在API平台打开debug和trace的时候，会报错
         if($res === TRUE) {
             $zip->extractTo($targetDir);
             $zip->close();
