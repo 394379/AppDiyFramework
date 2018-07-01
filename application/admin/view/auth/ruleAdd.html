@@ -1,0 +1,70 @@
+{extend name="../../common/view/public/base" /}
+{block name="body"}
+<div id="page-wrapper">
+  <div class="header">
+                    <h1 class="page-header">
+                        权限配置
+                    </h1>
+        <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}">Home</a></li>
+        <li><a href="{:url('auth/userRule')}">权限管理</a></li>
+        <li class="active">添加权限</li>
+      </ol>
+
+</div>
+<div id="page-inner">
+
+  <form class="form-horizontal" action="{:url('auth/ruleAdd')}" method="post">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">父级</label>
+      <div class="col-sm-6">
+        <select class="form-control" name="pid">
+          <option value="0">默认顶级</option>
+          {volist name="ruleInfo" id="vo"}
+              <option value="{$vo.id}">{$vo.lefthtml}{$vo.title}</option>
+          {/volist}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">权限名称</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="title"  placeholder="权限名称">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">控制器/方法</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="href"  placeholder="控制器/方法">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">图标</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" name="icon"  placeholder="图标">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">状态</label>
+      <div class="col-sm-6">
+        <input type="radio" name="status" value="1" checked>启用
+        <input type="radio" name="status" value="0">禁用
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">排序</label>
+      <div class="col-sm-6">
+        <input class="form-control" type="text" name="sort" value="50">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">保存</button>
+      </div>
+    </div>
+  </form>
+
+
+
+{/block}
