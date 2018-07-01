@@ -1,0 +1,506 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer and lighter body text */
+
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+
+/* CUSTOMIZE THE NAVBAR
+-------------------------------------------------- */
+
+/* Special class on .container surrounding .navbar, used for positioning it into place. */
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+/* Flip around the padding for proper display in narrow viewports */
+.navbar-wrapper > .container {
+  padding-right: 0;
+  padding-left: 0;
+}
+.navbar-wrapper .navbar {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.navbar-wrapper .navbar .container {
+  width: auto;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  height: 300px;
+  margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 300px;
+  background-color: #777;
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 300px;
+}
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+  /* Navbar positioning foo */
+  .navbar-wrapper {
+    margin-top: 20px;
+  }
+  .navbar-wrapper .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .navbar-wrapper .navbar {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* The navbar becomes detached from the top, so we round the corners */
+  .navbar-wrapper .navbar {
+    border-radius: 4px;
+  }
+
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 20px;
+    font-size: 21px;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  .featurette-heading {
+    margin-top: 120px;
+  }
+}
+.article-section {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 2px;
+  -moz-background-clip: padding;
+  border-radius: 2px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.article-section {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 2px;
+  -moz-background-clip: padding;
+  border-radius: 2px;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+.article-list-main .article-item .content {
+  margin-top: 15px;
+  color: #919191;
+}
+.article-list-main .media {
+  color: #919191;
+}
+.article-list-main .media .media-body {
+  padding-left: 10px;
+  line-height: 25px;
+}
+.article-list-main .media img {
+  -webkit-border-radius: 6px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 6px;
+  -moz-background-clip: padding;
+  border-radius: 6px;
+  background-clip: padding-box;
+  width: 220px;
+}
+.article-list-main .article-tag {
+  display: block;
+  clear: both;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #efefef;
+}
+.article-list-main .article-tag .pull-left {
+  height: 34px;
+  line-height: 34px;
+  color: #919191;
+}
+.article-list-main .article-tag .pull-left a {
+  color: #919191;
+}
+.article-list-main .pager {
+  margin: 40px 0 20px 0;
+}
+@media (max-width: 767px) {
+  .article-list-main .media img {
+    width: 140px;
+  }
+}
+.article-metas {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.article-metas .date {
+  height: 45px;
+  width: 45px;
+  margin-top: 10px;
+  text-align: center;
+  color: #c1c1c1;
+  border: 1px solid #c1c1c1;
+  -webkit-border-radius: 50%;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 50%;
+  -moz-background-clip: padding;
+  border-radius: 50%;
+  background-clip: padding-box;
+}
+.article-metas .date .day {
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.article-metas .date .month {
+  font-size: 12px;
+}
+.article-metas .metas-body {
+  padding-left: 60px;
+}
+.article-metas .metas-body p {
+  margin-bottom: 0;
+  margin-top: 0px;
+  font-size: 12px;
+}
+.article-metas .metas-body .title {
+  margin: 5px 0 0 0;
+  line-height: 36px;
+}
+.article-metas .metas-body .title a {
+  color: #616161;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.article-metas .metas-body .title a:hover {
+  color: #46c37b;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.article-metas .metas-body .sns {
+  color: #e1e1e1;
+  margin: 0px auto;
+}
+.article-metas .metas-body .sns span {
+  margin-right: 10px;
+}
+.article-metas .metas-body .sns span i {
+  margin-right: 5px;
+}
+@media (max-width: 1199px) {
+  .article-metas .metas-body .title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .article-metas .metas-body .title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+.article-text p {
+  line-height: 30px;
+  margin: 20px auto 30px auto;
+}
+@media (max-width: 767px) {
+  .article-text p {
+    margin: 10px auto 20px auto;
+  }
+}
+.article-text img {
+  margin: 10px auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  -webkit-border-radius: 2px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 2px;
+  -moz-background-clip: padding;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+
+.product-like-wrapper {
+  margin: 15px auto;
+  text-align: center;
+}
+.product-like-wrapper a {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  color: #999;
+  text-align: center;
+  background-color: #bebebe;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-transition: background-color 300ms linear;
+  -moz-transition: background-color 300ms linear;
+  -o-transition: background-color 300ms linear;
+  transition: background-color 300ms linear;
+  -webkit-border-radius: 22px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 22px;
+  -moz-background-clip: padding;
+  border-radius: 22px;
+  background-clip: padding-box;
+  vertical-align: middle;
+}
+.product-like-wrapper a.product-like {
+  position: relative;
+  margin-right: 5px;
+  background-color: #46c37b;
+}
+.product-like-wrapper a.product-like:hover {
+  background-color: #08aa73;
+}
+.product-like-wrapper a.product-dislike {
+  position: relative;
+  margin-left: 5px;
+}
+.product-like-wrapper a.product-dislike:hover {
+  background-color: #999;
+}
+.product-like-wrapper a i.fa {
+  font-size: 20px;
+  color: #fff;
+}
+.product-like-wrapper .like-bar-wrapper {
+  position: relative;
+  display: inline-block;
+  vertical-align: -18%;
+}
+.product-like-wrapper .bar {
+  width: 110px;
+  height: 7px;
+  overflow: hidden;
+  background-color: #dcdcdc;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+.product-like-wrapper .bar span {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background-color: #46c37b;
+  -webkit-transition: width 300ms linear;
+  -moz-transition: width 300ms linear;
+  -o-transition: width 300ms linear;
+  transition: width 300ms linear;
+}
+.product-like-wrapper .num {
+  position: absolute;
+  top: -18px;
+  display: block;
+  width: 100%;
+  font-style: normal;
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+}
+.product-like-wrapper .num i {
+  position: absolute;
+  right: 55%;
+  color: #46c37b;
+  font-style: normal;
+}
+.product-like-wrapper .num span {
+  position: absolute;
+  left: 55%;
+}
+.product-like-wrapper.like-status-1 .product-like {
+  position: relative;
+  background: #86a4d5;
+}
+.product-like-wrapper.like-status-1 .product-like::before {
+  content: "\5df2\8d5e";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+  line-height: 44px;
+  color: #fff;
+}
+.product-like-wrapper.like-status-3 .product-dislike {
+  position: relative;
+  background: #bebebe;
+}
+.product-like-wrapper.like-status-3 .product-dislike::before {
+  content: "\5df2\8e29";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  font-size: 14px;
+  line-height: 44px;
+  color: #fff;
+}
+.entry-meta ul {
+  overflow: hidden;
+  margin: 0 0 10px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #dedede;
+}
+.entry-meta ul li {
+  line-height: 26px;
+}
+#comment-container #commentlist dl {
+  position: relative;
+  border-bottom: 1px solid #eee;
+  clear: both;
+  padding: 10px 0;
+  margin-bottom: 5px;
+}
+#comment-container #commentlist dl dt {
+  float: left;
+  margin-right: 10px;
+  width: 54px;
+  height: 54px;
+  display: block;
+  position: absolute;
+}
+#comment-container #commentlist dl dt img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#comment-container #commentlist dl dd {
+  padding-left: 60px;
+  float: left;
+  width: 100%;
+}
+#comment-container #commentlist dl dd small {
+  display: block;
+  color: #999;
+  margin: -2px 0;
+  height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+}
+#comment-container #commentlist dl dd small a {
+  display: none;
+}
+#comment-container #commentlist dl dd dl {
+  margin: 0px;
+  border-top: 1px solid #eee;
+  border-bottom: none;
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+#comment-container #commentlist dl dd dl dd {
+  width: 550px;
+}
+#comment-container #commentlist dl dd p {
+  margin-bottom: 10px;
+}
+#comment-container #commentlist cite {
+  font-style: normal;
+}
+#comment-container h3 {
+  position: relative;
+  font-size: 16px;
+  padding: 15px 0;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
+  font-weight: 400;
+}
+#comment-container h3 a {
+  display: none;
+}
+#comment-container #postcomment .form-group {
+  margin-bottom: 10px;
+}
+#comment-container #postcomment label {
+  font-weight: normal;
+}
+#comment-container #postcomment a small {
+  display: inline !important;
+}
