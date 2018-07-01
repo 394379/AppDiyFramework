@@ -1,0 +1,61 @@
+{extend name="../../common/view/public/base" /}
+{block name="body"}
+<div id="page-wrapper">
+  <div class="header">
+                    <h1 class="page-header">
+                        权限配置
+                    </h1>
+        <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}">Home</a></li>
+        <li><a href="{:url('auth/userRule')}">权限管理</a></li>
+        <li class="active">权限列表</li>
+      </ol>
+
+</div>
+<div id="page-inner">
+<a href="{:url('auth/ruleAdd')}" class="btn btn-default" role="button">添加权限</a>
+  <table class="table table-hover text-center" style="background-color: #FFFFFF">
+   <tr style="background-color:#3E3E3E">
+     <td style="color:#FFFFFF" width="5%">编号</td>
+     <td style="color:#FFFFFF" width="5%">图标</td>
+     <td style="color:#FFFFFF" width="15%">权限名称</td>
+     <td style="color:#FFFFFF" width="15%" class="text-left">控制器/方法</td>
+     <td style="color:#FFFFFF" width="5%">父级</td>
+     <td style="color:#FFFFFF" width="5%">验证权限</td>
+     <td style="color:#FFFFFF" width="5%">菜单状态</td>
+     <td style="color:#FFFFFF" width="5%">排序</td>
+     <td style="color:#FFFFFF" width="15%">操作</td>
+   </tr>
+   {volist name="ruleInfo" id="vo"}
+   <tr>
+     <td>{$vo.id}</td>
+     <td><i class="{$vo.icon}"></i></td>
+     <td>{$vo.title}</td>
+     <td class="text-left">{$vo.href}</td>
+     <td>{$vo.pid}</td>
+     <td>{$vo.type}</td>
+     <td>{$vo.status}</td>
+     <td>{$vo.sort}</td>
+     <td>
+       <a class="btn btn-info" href="{:url('auth/ruleEdit',['id'=>$vo.id])}">编辑</a>
+       <a class="btn btn-danger" href="{:url('auth/ruleDel',['id'=>$vo.id])}" onclick="return del()">删除</a>
+     </td>
+   </tr>
+   {/volist}
+      <tr>
+          <td colspan="9">{$ruleInfo|raw}</td>
+      </tr>
+  </table>
+    <script>
+        function del(){
+            if(confirm('你确定要删除码?')){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
+
+{/block}
