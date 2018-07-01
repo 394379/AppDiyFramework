@@ -349,8 +349,7 @@ class Plugin extends Base
             if($resBuy===0){
                 $url = $apiUrl."orderpay?version=" . $version . "&product_id=" . $product_id . "&body=" . $body . "&total_fee=" . $total_fee;
                 $resInfo = $httpService->download($url);
-
-                if(self::orderCheck($resInfo[0]['out_trade_no'])==1){
+                if(self::orderCheck($apiUrl,$resInfo[0]['out_trade_no'])==1){
                     $this->redirect('/admin/plugin/install?name='.$data['body']);
                 }else {
                     $this->assign('out_trade_no', $resInfo[0]['out_trade_no']);
@@ -372,9 +371,9 @@ class Plugin extends Base
     }
 
     //查询订单
-    public function orderCheck($order_id)
+    public function orderCheck($apiUrl,$order_id)
     {
-        $url = Config::get('app_wxpay')."orderpay?order_id=".input($order_id);
+        $url = $apiUrl."orderpay?order_id=".input($order_id);
         $httpService = new HttpService();
         $resInfo = $httpService->download($url);
         echo $resInfo;

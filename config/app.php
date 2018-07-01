@@ -140,12 +140,12 @@ return [
     // +----------------------------------------------------------------------
 
     //应用_API,以"/"结尾
-    'app_api'                => 'http://api.ycsoft.cm/publish/api/',
+    'app_api'                => 'http://dapi.yc78.com/publish/api/',
     //市场API地址,以"/"结尾
-    'app_loginCheck'         => 'http://api.ycsoft.cm/admin/login/',
+    'app_loginCheck'         => 'http://dapi.yc78.com/admin/login/',
     //文件上传地址,以"/"结尾
-    'app_fileUpload'         => 'http://api.ycsoft.cm/uploads/',
+    'app_fileUpload'         => 'http://dapi.yc78.com/uploads/',
     //微信支付API,以"/"结尾
-    'app_wxpay'              => 'http://api.ycsoft.cm/publish/pay/',
+    'app_wxpay'              => 'http://dapi.yc78.com/publish/pay/',
 
 ];
