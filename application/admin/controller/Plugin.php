@@ -218,8 +218,8 @@ class Plugin extends Base
         $rootDir = env('ROOT_PATH');
 
         $targetFileName = strtolower($plugin['name']).'_'.$newVersion.'.zip';//新插件文件名
-        $packageFile = implode($SD,array(realpath($rootDir),'Plugins','package',$targetFileName));//插件文件
-        $extractDir = implode($SD,array(realpath($rootDir),'Plugins','tmp',md5($targetFileName)));//临时目录
+        $packageFile = implode($SD,array(realpath($rootDir),'plugins','package',$targetFileName));//插件文件
+        $extractDir = implode($SD,array(realpath($rootDir),'plugins','tmp',md5($targetFileName)));//临时目录
 
         //halt($newVersion);
         $zip = new \ZipArchive;
@@ -323,19 +323,19 @@ class Plugin extends Base
     }
 
     //删除插件
-    public function delete(){
-
-        $this->noLogin();
-
-        $SD = DIRECTORY_SEPARATOR;//系统分隔符
-        $roorDir = Env::get('runtime_path');
-
-        $packageFile = implode($SD,array(realpath($roorDir),'plugins','package',input('pkg')));//插件文件
-        //halt($packageFile);
-        if(unlink($packageFile)){
-            $this->success("删除安装包成功！",'plugin/market','','1');
-        }
-    }
+//    public function delete(){
+//
+//        $this->noLogin();
+//
+//        $SD = DIRECTORY_SEPARATOR;//系统分隔符
+//        $roorDir = Env::get('runtime_path');
+//
+//        $packageFile = implode($SD,array(realpath($roorDir),'plugins','package',input('pkg')));//插件文件
+//        //halt($packageFile);
+//        if(unlink($packageFile)){
+//            $this->success("删除安装包成功！",'plugin/market','','1');
+//        }
+//    }
 
     //微信API调用
     public function orderpay(){

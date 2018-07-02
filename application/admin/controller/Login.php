@@ -67,6 +67,7 @@ class Login extends Base
             Session::set('sitename',$siteInfo['sitename']);
             Session::set('company',$siteInfo['company']);
             Session::set('years',$siteInfo['years']);
+            Session::set('version','ADF_v0.2.180702');
 
 
             return $this->success('登录成功','index/index','',1);
