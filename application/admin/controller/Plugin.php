@@ -104,7 +104,9 @@ class Plugin extends Base
             $zip->close();
             $fileService->unlink_file($fileInfo['save_path']);//删除压缩包
         } else {
-            $this->error("解压安装包出错！");exit;
+            $fileService->unlink_file($fileInfo['save_path']);//删除压缩包
+            $this->error("解压安装包出错！");
+            exit;
         }
 
         //读取配置
