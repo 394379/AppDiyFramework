@@ -77,10 +77,16 @@ class Plugin extends Base
         //判断登录与权限
         $this->noLogin();
 
-        $url = Config::get('app_api')."getVerZip?name=".input('name');
-        $httpService = new HttpService();
-        $resInfo = $httpService->download($url);
+        if(Session::get('remote_user_id')=="" && Session::get('remote_user_email')==""){
+            $this->error('市场未登录！','/admin/plugin/market','','1');exit;
+        }
 
+        $remoteUrl = Config::get('app_api')."getVerZip?user_id=".Session::get('remote_user_id')."&name=".input('name');
+        $httpService = new HttpService();
+        $resInfo = $httpService->download($remoteUrl);
+        if($resInfo=="NULL" || $resInfo=="NOLOGIN"){
+            $this->error('异常操作！','/admin/plugin/market','','1');exit;
+        }
         //在线下载插件,思路下载到指定目录
         //参数准备
         $SD = DIRECTORY_SEPARATOR;//系统分隔符
