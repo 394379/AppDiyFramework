@@ -7,8 +7,7 @@
  */
 namespace app\admin\controller;
 use app\common\controller\Base;
-use app\common\model\guestModel;
-use think\facade\Request;
+use think\facade\Env;
 
 
 class Index extends Base
@@ -16,37 +15,33 @@ class Index extends Base
     public function index()
     {
         $this->noLogin();
-        $this->assign('siteName','元诚软件后台');
-        $this->assign('moudle','index');
         return $this->fetch('index');
     }
 
-//    留言管理
-    public function guestList()
-    {
-        $this->noLogin();
-        $guestInfo = guestModel::order('id','desc')->paginate(10);
-        if ($guestInfo==null)
-        {
-            $this->error('错误');
-        }else{
-            //halt($userInfo);
-            $this->assign('action','guestlist');
-            $this->view->assign('guestInfo',$guestInfo);
+    //清除缓存
+    public function clear(){
+        $R = Env::get('runtime_path');
+        if ($this->_deleteDir($R)) {
+            $this->success('清除缓存成功!','/admin/index/index','','1');
+        } else {
+            $this->error('清除缓存失败!','/admin/index/index','','1');
         }
-        $this->view->assign('siteName','元诚软件简易后台v0.01');
-        return $this->view->fetch('guestlist');
     }
-
-    public function guestDel()
+    private function _deleteDir($R)
     {
-        $guest_id = Request::param('id');
-
-        if(guestModel::where('id',$guest_id)->delete()){
-            return $this->success('删除成功','guestlist','','1');
+        $handle = opendir($R);
+        while (($item = readdir($handle)) !== false) {
+            if ($item != '.' and $item != '..') {
+                if (is_dir($R . '/' . $item)) {
+                    $this->_deleteDir($R . '/' . $item);
+                } else {
+                    if (!unlink($R . '/' . $item))
+                        die('error!');
+                }
+            }
         }
-        $this->error('删除失败');
+        closedir($handle);
+        return rmdir($R);
     }
-
 
 }

@@ -97,6 +97,8 @@
             <input type="hidden" name="product_id" value="{$plugin.id}">
             <input type="hidden" name="body" value="{$plugin.name}">
             <input type="hidden" name="total_fee" value="{$plugin.money}">
+            <input type="hidden" name="remote_user_id" value="{$Think.session.remote_user_id}">
+
         </form>
         {/volist}
         </tbody>

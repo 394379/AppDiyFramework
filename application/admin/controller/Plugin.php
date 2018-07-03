@@ -346,6 +346,7 @@ class Plugin extends Base
         }
         $apiUrl = Config::get('app_wxpay');
         $data = Request::param();
+        $remote_user_id = $data['remote_user_id'];
         $version=$data['version'];
         $product_id=$data['product_id'];
         $body=$data['body'];
@@ -356,7 +357,7 @@ class Plugin extends Base
             $resBuy = $httpService->download($buy_url);
             //halt($resBuy);
             if($resBuy===0){
-                $url = $apiUrl."orderpay?version=" . $version . "&product_id=" . $product_id . "&body=" . $body . "&total_fee=" . $total_fee;
+                $url = $apiUrl."orderpay?user_id=".$remote_user_id."&version=" . $version . "&product_id=" . $product_id . "&body=" . $body . "&total_fee=" . $total_fee;
                 $resInfo = $httpService->download($url);
                 if(self::orderCheck($apiUrl,$resInfo[0]['out_trade_no'])==1){
                     $this->redirect('/admin/plugin/install?name='.$data['body']);
