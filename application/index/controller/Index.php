@@ -21,6 +21,9 @@ class Index extends Base
         $address = $siteInfo['address'];
         $email = $siteInfo['email'];
         $phone = $siteInfo['phone'];
+        $company = $siteInfo['company'];
+        $years = $siteInfo['years'];
+        $beian_code = $siteInfo['beian_code'];
 
         $this->assign('siteName',$siteName);
         $this->assign('description',$desc);
@@ -28,6 +31,9 @@ class Index extends Base
         $this->assign('address',$address);
         $this->assign('email',$email);
         $this->assign('phone',$phone);
+        $this->assign('company',$company);
+        $this->assign('years',$years);
+        $this->assign('beian_code',$beian_code);
 
         return $this->view->fetch('index');
     }

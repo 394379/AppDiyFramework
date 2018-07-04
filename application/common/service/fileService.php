@@ -270,28 +270,53 @@ class FileService {
         mkdir ($dir);
     }
 
-    //检查是否有更新文件
-    public function checkUpdate($packageDir,$pluginName,$pluginVersion){
-        //$packageDir = implode(DIRECTORY_SEPARATOR,array('Plugins','package'));
-        //halt($packageDir);
-        $files = scandir($packageDir);
-
-        $pluginVersionArr = explode('.',$pluginVersion);//当前安装插件版本
-
-        foreach($files as $file){
-            if(strpos($file,'.zip')>0 && strpos($file,strtolower($pluginName.'_'))===0){
-                $version = str_replace('.zip','',explode('_',$file)[1]);
-
-                $versionArr = explode('.',$version);
-
-                for($i=0;$i<sizeof($versionArr);$i++){
-                    if($versionArr[$i]>$pluginVersionArr[$i]){
-                        return $version;
-                    }
-                }
-            }
+    /**
+     * @param $file_path
+     * @param $tmpDir
+     */
+    public function unZip($file_path,$tmpDir){
+        //解压
+        $zip = new \ZipArchive;
+        $res = $zip->open($file_path);
+        //halt($res);//在API平台打开debug和trace的时候，会报错
+        if($res === TRUE) {
+            $zip->extractTo($tmpDir);
+            $zip->close();
+            $this->unlink_file($file_path);//删除压缩包
+            $msg="TRUE";
+        } else {
+            $this->unlink_file($file_path);//删除压缩包
+            $msg="FALSE";
+            exit;
         }
+        return json($msg);
+    }
 
-        return false;
+    /**
+     * @param $tmpDir
+     * @param string $fileName
+     * @return mixed
+     */
+    public function readXml($tmpDir,$fileName='plugin.xml'){
+        //读取插件配置文件
+        $pluginXmlFile = implode('/',array($tmpDir,$fileName));
+        //$xml = (array)simplexml_load_file($pluginXmlFile); //强制转换为数组
+        $xml = (array)simplexml_load_string(file_get_contents($pluginXmlFile)); //强制转换为数组
+
+        //生成基础数据
+        $pluginData['name'] = $xml['name'];
+        $pluginData['description'] = $xml['description'];
+        $pluginData['version'] = $xml['version'];
+        $pluginData['appkey'] = $xml['appkey'];
+        //读取插件数据库脚本配置
+        $dbscript = array();
+        $dbscriptNodes = $xml['dbscript'];
+        $dbscript = (array)$dbscriptNodes;
+        //生成脚本数据
+        $pluginData['dbscript'] = json_encode($dbscript);
+        $pluginData['instime'] = time();
+        $pluginData['uptime'] = time();
+
+        return $pluginData;
     }
 }
