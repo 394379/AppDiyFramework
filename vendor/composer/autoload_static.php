@@ -16,6 +16,7 @@ class ComposerStaticInit31f40b80f4435cfc3e8f364296e337f6
     public static $prefixLengthsPsr4 = array (
         't' => 
         array (
+            'tp5er\\' => 6,
             'think\\composer\\' => 15,
             'think\\captcha\\' => 14,
         ),
@@ -36,6 +37,10 @@ class ComposerStaticInit31f40b80f4435cfc3e8f364296e337f6
     );
 
     public static $prefixDirsPsr4 = array (
+        'tp5er\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tp5er/tp5-databackup/src',
+        ),
         'think\\composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-installer/src',

@@ -1,6 +1,7 @@
 {
     "require": {
         "topthink/think-captcha": "^2.0",
-        "yansongda/pay": "^1.3"
+        "yansongda/pay": "^1.3",
+        "tp5er/tp5-databackup": "^1.0"
     }
 }
