@@ -9,9 +9,8 @@ namespace app\admin\controller;
 use app\common\controller\Base;
 use app\common\model\pluginModel;
 use app\common\Service\MarketService;
-use think\Db;
-use app\common\service\FileService;
 use app\common\service\HttpService;
+use app\admin\validate\Login;
 use think\facade\Env;
 use think\facade\Request;
 use think\facade\Session;
@@ -20,7 +19,6 @@ use think\facade\Config;
 
 class Plugin extends Base
 {
-
     //插件列表（已安装）
     public function pluginlist()
     {
@@ -30,7 +28,6 @@ class Plugin extends Base
         $this->assign('moudle','plugin');
         return $this->fetch('pluginList');
     }
-
     //插件市场（远程数据）
     public function market()
     {
@@ -41,20 +38,20 @@ class Plugin extends Base
         $this->assign('plugins',$resInfo);
         return $this->fetch('market');
     }
-
     //远程验证
     public function remoteCheck()
     {
         $this->noLogin();
-        $user_email=Request::param('email');
-        $user_password=Request::param('password');
-        if($user_email=="" || $user_password==""){
-            $this->error('用户名或密码错误，请重新登录！','/admin/plugin/market','','1');exit;
-        }
+        $data = Request::param();
+        $validate = new Login();
+        if(!$validate->check($data)){$this->error($validate->getError(),'/admin/plugin/market','','1');exit;}
+        $user_email=$data['email'];
+        $user_password=$data['password'];
         $url = Config::get('app_loginCheck')."remoteCheck?user_email=".$user_email."&user_password=".$user_password;
         $httpService = new HttpService();
         $resInfo = $httpService->download($url);
         //dump($resInfo);
+        if($resInfo==="EMAIL_FALSE"){$this->error('邮箱格式错误！','/admin/plugin/market','','1');}
         if($resInfo!=0){
             Session::set('remote_user_id',$resInfo[0]['id']);
             Session::set('remote_user_email',$resInfo[0]['email']);
@@ -72,16 +69,14 @@ class Plugin extends Base
             $this->success('市场退出成功！','/admin/plugin/market','','1');
         }
     }
-    //插件安装（重写安装最新20180517）
+    //插件安装（重写安装最新20180705）
     public function install()
     {
         //判断登录与权限
         $this->noLogin();
-
         if(Session::get('remote_user_id')=="" && Session::get('remote_user_email')==""){
             $this->error('市场未登录！','/admin/plugin/market','','1');exit;
         }
-
         //异常操作检查
         $remoteUrl = Config::get('app_api')."getVerZip?user_id=".Session::get('remote_user_id')."&name=".input('name');
         $httpService = new HttpService();
@@ -89,8 +84,7 @@ class Plugin extends Base
         if($resInfo=="NULL" || $resInfo=="NOLOGIN"){
             $this->error('异常操作！','/admin/plugin/market','','1');exit;
         }
-        //在线下载插件
-        //参数准备
+        //在线下载插件,参数准备
         $SD = DIRECTORY_SEPARATOR;//系统分隔符
         $rootDir = Env::get('runtime_path');//tmp目录
         $installDir = Env::get('root_path');
@@ -107,7 +101,6 @@ class Plugin extends Base
             $this->error("插件安装失败！",'plugin/market','','1');
         }
     }
-
     //卸载插件
     public function uninstall(){
 
@@ -130,7 +123,6 @@ class Plugin extends Base
             $this->error("插件卸载失败！",'plugin/pluginList','','1');
         }
     }
-
     //升级插件（还没作升级测试）
     public function upgrade(){
 
@@ -172,7 +164,6 @@ class Plugin extends Base
         }
 
     }
-
     //微信API调用
     public function orderpay(){
 
@@ -215,7 +206,6 @@ class Plugin extends Base
         return $this->fetch('order');
 
     }
-
     //查询订单
     public function orderCheck($apiUrl,$order_id)
     {

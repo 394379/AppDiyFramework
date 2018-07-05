@@ -13,6 +13,9 @@
 
 use think\Db;
 
+//屏蔽“未定义数组下标:0”错误的问题
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 if(!function_exists('getAuthGroupName'))
 {
   function getAuthGroupName($id)
