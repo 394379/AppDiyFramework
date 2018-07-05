@@ -143,12 +143,12 @@ return [
     'app_version'            => 'ADF_v0.2.180702',
 
     //应用_API,以"/"结尾
-    'app_api'                => 'http://dapi.yc78.com/publish/api/',
+    'app_api'                => 'https://dapi.yc78.com/publish/api/',
     //市场API地址,以"/"结尾
-    'app_loginCheck'         => 'http://dapi.yc78.com/admin/login/',
+    'app_loginCheck'         => 'https://dapi.yc78.com/admin/login/',
     //文件上传地址,以"/"结尾
-    'app_fileUpload'         => 'http://dapi.yc78.com/uploads/',
+    'app_fileUpload'         => 'https://dapi.yc78.com/uploads/',
     //微信支付API,以"/"结尾
-    'app_wxpay'              => 'http://dapi.yc78.com/publish/pay/',
+    'app_wxpay'              => 'https://dapi.yc78.com/publish/pay/',
 
 ];
