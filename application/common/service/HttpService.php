@@ -25,7 +25,7 @@ class HttpService
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_ENCODING, "gzip");
-        if($https){
+        if($https===true){
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
         $res = curl_exec($ch);

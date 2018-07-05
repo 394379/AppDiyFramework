@@ -36,7 +36,7 @@ class FileService {
      * @param int $type=0 0:curl方式,1:readfile方式,2file_get_contents方式
      * @return array[]
      */
-    function getFile($url, $save_dir = '', $filename = '', $type = 0) {
+    function getFile($url, $save_dir = '', $filename = '', $type = 0,$https=true) {
         if (trim($url) == '') {
             return false;
         }
@@ -57,6 +57,9 @@ class FileService {
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            if($https===true){
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            }
             $content = curl_exec($ch);
             curl_close($ch);
         }
@@ -283,13 +286,12 @@ class FileService {
             $zip->extractTo($tmpDir);
             $zip->close();
             $this->unlink_file($file_path);//删除压缩包
-            $msg="TRUE";
+            return true;
         } else {
             $this->unlink_file($file_path);//删除压缩包
-            $msg="FALSE";
-            exit;
+            return false;
         }
-        return json($msg);
+
     }
 
     /**
@@ -301,7 +303,11 @@ class FileService {
         //读取插件配置文件
         $pluginXmlFile = implode('/',array($tmpDir,$fileName));
         //$xml = (array)simplexml_load_file($pluginXmlFile); //强制转换为数组
-        $xml = (array)simplexml_load_string(file_get_contents($pluginXmlFile)); //强制转换为数组
+        if(is_file($pluginXmlFile)){
+            $xml = (array)simplexml_load_string(file_get_contents($pluginXmlFile)); //强制转换为数组
+        }else{
+            return false;exit;
+        }
 
         //生成基础数据
         $pluginData['name'] = $xml['name'];

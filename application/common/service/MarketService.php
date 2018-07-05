@@ -26,11 +26,14 @@ class MarketService extends Base
         //下载文件
         $fileService = new FileService();
         $fileInfo = $fileService->getFile($fileService->dir_replace($url),$tmpDir,$fileName,0);
+        //halt($fileInfo);
         if($fileInfo==""){$this->error('插件下载失败!请检查网络。');}
         //解压
-        if(!$fileService->unZip($fileInfo['save_path'],$tmpDir)){$this->error("解压安装包出错！");}
+        if($fileService->unZip($fileInfo['save_path'],$tmpDir)===false){$this->error("解压安装包出错！");exit;}
         //读取插件配置文件
         $res = $fileService->readXml($tmpDir);
+        //halt($res);
+        if($res===false){$this->error("读取异常！");exit;}
         //检查安装条件
         $appKeyCount = pluginModel::where(array('appkey'=>$res['appkey']))->count();
         if($appKeyCount>0){$this->error("插件已经存在",'/admin/plugin/market','','1');exit;}
