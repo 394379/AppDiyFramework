@@ -44,7 +44,7 @@
                 var version_id = {$version_id};
 
                 $.ajax({
-                    url:'http://dapi.yc78.com/publish/pay/payStatusCheck',
+                    url:'{$Think.config.app_wxpay}payStatusCheck',
                     dataType:'json',
                     type:'post',
                     data:{'order_id':order_id,'user_id':user_id,'plugin_id':plugin_id,'version_id':version_id},
