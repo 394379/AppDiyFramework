@@ -8,7 +8,7 @@
 namespace app\admin\controller;
 use app\common\controller\Base;
 use app\common\model\pluginModel;
-use app\common\Service\MarketService;
+use app\common\service\MarketService;
 use app\common\service\HttpService;
 use app\admin\validate\Login;
 use think\facade\Env;

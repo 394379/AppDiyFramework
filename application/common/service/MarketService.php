@@ -37,6 +37,10 @@ class MarketService extends Base
         //检查安装条件
         $appKeyCount = pluginModel::where(array('appkey'=>$res['appkey']))->count();
         if($appKeyCount>0){$this->error("插件已经存在",'/admin/plugin/market','','1');exit;}
+
+        //插件信息写入数据库
+        pluginModel::create($res);
+
         //执行安装数据库脚本
         if(strlen(json_decode($res['dbscript'],true)['install'])>10){
             $arrSql = explode(';',json_decode($res['dbscript'],true)['install']);
@@ -46,18 +50,17 @@ class MarketService extends Base
                 }
             }
         }
-        //插件信息写入数据库
-        pluginModel::create($res);
+
 
         //创建模块目录
         $fileService->create_dir($targetDir,0777);
         //复制目录及文件
         if($fileService->handle_dir($tmpDir,$targetDir,'copy',true)){
             //删除临时解压目录
-            $fileService->deleteDir($tmpDir);
-            return "TRUE";
+            $fileService->remove_dir($tmpDir,true);
+            return true;
         }else{
-            return "FALSE";
+            return false;
         }
 
     }
@@ -76,8 +79,7 @@ class MarketService extends Base
 
         if(empty($dbscript))
         {
-            //$this->error('脚本为空，卸载失败','','','1');
-            return "FALSE";exit;
+            return false;exit;
         }
 
         //执行卸载脚本
@@ -91,11 +93,11 @@ class MarketService extends Base
         }
         //加载文件服务
         $fileService = new FileService();
-        $fileService->deleteDir($targetDir);
+        $fileService->remove_dir($targetDir,true);
         //删除插件信息
         pluginModel::destroy($plugin['id']);
 
-        return "TRUE";exit;
+        return true;exit;
     }
 
     /**
@@ -150,6 +152,12 @@ class MarketService extends Base
         $pluginData['dbscript'] = json_encode($dbscript);
         $pluginData['instime'] = time();
         $pluginData['uptime'] = time();
+
+        $pluginId = pluginModel::where('name',$pluginData['name'])->value('id');
+
+        //插件信息写入数据库
+        pluginModel::update($pluginData,$pluginId);
+
         //执行安装数据库脚本
         if(strlen($dbscript['update'])>10){
             $arrSql = explode(';',$dbscript['update']);
@@ -159,18 +167,16 @@ class MarketService extends Base
                 }
             }
         }
-        //插件信息写入数据库
-        pluginModel::create($pluginData);
 
         //创建模块目录
         $fileService->create_dir($targetDir,0777);
         //复制目录及文件
         if($fileService->handle_dir($tmpDir,$targetDir,'copy',true)){
             //删除临时解压目录
-            $fileService->deleteDir($tmpDir);
-            return "TRUE";
+            $fileService->remove_dir($tmpDir,true);
+            return true;
         }else{
-            return "FALSE";
+            return false;
         }
     }
 }
