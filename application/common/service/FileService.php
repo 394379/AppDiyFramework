@@ -86,17 +86,6 @@ class FileService {
         );
     }
 
-    //删除目录
-    public function deleteDir($dir){
-        if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'){
-            $cmd = "rmdir /s/q " . $dir;
-        }else{
-            $cmd = "rm -Rf " . $dir;
-        }
-
-        exec($cmd);
-    }
-
     //复制目录中的文件
     public function copyFile($src,$target){
         if(strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'){
@@ -152,21 +141,19 @@ class FileService {
      */
     public function remove_dir($dir_path,$is_all=FALSE)
     {
+
         $dirName = $this->dir_replace($dir_path);
         $handle = @opendir($dirName);
-        while (($file = @readdir($handle)) !== FALSE)
-        {
-            if($file != '.' && $file != '..')
-            {
+
+        while (($file = @readdir($handle))){
+            if($file != '.' && $file != '..'){
                 $dir = $dirName . '/' . $file;
-                if($is_all)
-                {
-                    is_dir($dir) ? $this->remove_dir($dir) : $this->unlink_file($dir);
+                //dump($dir);
+                if($is_all){
+                    is_dir($dir) ? $this->remove_dir($dir,$is_all) : $this->unlink_file($dir);//如果不是目录就删除文件
                 }
-                else
-                {
-                    if(is_file($dir))
-                    {
+                else{
+                    if(is_file($dir)){
                         $this->unlink_file($dir);
                     }
                 }
@@ -175,6 +162,7 @@ class FileService {
         closedir($handle);
         return @rmdir($dirName);
     }
+
 
     /**
      * 替换相应的字符
@@ -324,5 +312,16 @@ class FileService {
         $pluginData['uptime'] = time();
 
         return $pluginData;
+    }
+
+    /**
+     * 返回数组消息
+     * @param bool $bool
+     * @param $str
+     * @return array
+     */
+    function resMsg($bool=true,$str)
+    {
+        return array('status'=>$bool,'message'=>$str);
     }
 }

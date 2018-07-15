@@ -95,10 +95,12 @@ class Plugin extends Base
 
         //安装操作
         $marketService = new MarketService();
-        if($marketService->pInstall($url,$tmpDir,$targetDir,$fileName)){
-            $this->success("插件安装成功！",'plugin/pluginList','','1');
+        $res=$marketService->pInstall($url,$tmpDir,$targetDir,$fileName);
+        //halt($res);
+        if($res['status']===true){
+            $this->success($res['message'],'plugin/pluginList','','3');
         }else{
-            $this->error("插件安装失败！",'plugin/market','','1');
+            $this->error($res['message'],'plugin/market','','3');
         }
     }
     //卸载插件
@@ -117,10 +119,12 @@ class Plugin extends Base
 
         //卸载操作
         $marketService = new MarketService();
-        if($marketService->pUninstall($plugin_id,$targetDir)){
-            $this->success("插件卸载成功！",'plugin/market','','1');
+        $res=$marketService->pUninstall($plugin_id,$targetDir);
+        //halt($res);
+        if($res['status']===true){
+            $this->success($res['message'],'plugin/market','','3');
         }else{
-            $this->error("插件卸载失败！",'plugin/pluginList','','1');
+            $this->error($res['message'],'plugin/pluginList','','3');
         }
     }
     //升级插件（还没作升级测试）

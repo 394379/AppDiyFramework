@@ -27,20 +27,26 @@ class MarketService extends Base
         $fileService = new FileService();
         $fileInfo = $fileService->getFile($fileService->dir_replace($url),$tmpDir,$fileName,0);
         //halt($fileInfo);
-        if($fileInfo==""){$this->error('插件下载失败!请检查网络。');}
+        if($fileInfo=="" || empty($fileInfo)){
+            return $fileService->resMsg(false,'插件下载失败!请检查网络。');
+        }
         //解压
-        if($fileService->unZip($fileInfo['save_path'],$tmpDir)===false){$this->error("解压安装包出错！");exit;}
+        if($fileService->unZip($fileInfo['save_path'],$tmpDir)===false){
+            return $fileService->resMsg(false,'解压安装包出错！');
+        }
         //读取插件配置文件
         $res = $fileService->readXml($tmpDir);
         //halt($res);
-        if($res===false){$this->error("读取异常！");exit;}
+        if($res===false){
+            return $fileService->resMsg(false,'读取异常！');
+        }
         //检查安装条件
         $appKeyCount = pluginModel::where(array('appkey'=>$res['appkey']))->count();
-        if($appKeyCount>0){$this->error("插件已经存在",'/admin/plugin/market','','1');exit;}
-
+        if($appKeyCount>0){
+            return $fileService->resMsg(false,'插件已经存在');
+        }
         //插件信息写入数据库
         pluginModel::create($res);
-
         //执行安装数据库脚本
         if(strlen(json_decode($res['dbscript'],true)['install'])>10){
             $arrSql = explode(';',json_decode($res['dbscript'],true)['install']);
@@ -51,16 +57,18 @@ class MarketService extends Base
             }
         }
 
-
         //创建模块目录
         $fileService->create_dir($targetDir,0777);
         //复制目录及文件
         if($fileService->handle_dir($tmpDir,$targetDir,'copy',true)){
             //删除临时解压目录
-            $fileService->remove_dir($tmpDir,true);
-            return true;
+            if($fileService->remove_dir($tmpDir,true)){
+                return $fileService->resMsg(true,'插件安装成功！');
+            }else{
+                return $fileService->resMsg(false,'插件安装成功！临时目录删除「失败」！');
+            }
         }else{
-            return false;
+            return $fileService->resMsg(false,'插件安装失败！文件复制失败！');
         }
 
     }
@@ -73,13 +81,13 @@ class MarketService extends Base
      */
     public function pUninstall($plugin_id,$targetDir){
 
+        $fileService = new FileService();
         //获取插件信息
         $plugin = pluginModel::get($plugin_id);
         $dbscript = json_decode($plugin['dbscript'],true);
 
-        if(empty($dbscript))
-        {
-            return false;exit;
+        if(empty($dbscript)){
+            return $fileService->resMsg(false,'插件删除失败！脚本为空卸载「失败」！');
         }
 
         //执行卸载脚本
@@ -90,14 +98,18 @@ class MarketService extends Base
                     Db::execute($value);
                 }
             }
+        }else{
+            return $fileService->resMsg(false, '插件删除失败！脚本执行「失败」！');
         }
-        //加载文件服务
-        $fileService = new FileService();
-        $fileService->remove_dir($targetDir,true);
-        //删除插件信息
         pluginModel::destroy($plugin['id']);
+        //删除插件目录文件服务
+        if($fileService->remove_dir($targetDir,true)){
+            //删除插件信息
+            return $fileService->resMsg(true, '插件删除成功！');
+        }else{
+            return $fileService->resMsg(false, '插件删除成功！插件目录删除「失败」！');
+        }
 
-        return true;exit;
     }
 
     /**
@@ -154,7 +166,6 @@ class MarketService extends Base
         $pluginData['uptime'] = time();
 
         $pluginId = pluginModel::where('name',$pluginData['name'])->value('id');
-
         //插件信息写入数据库
         pluginModel::update($pluginData,$pluginId);
 
@@ -167,6 +178,7 @@ class MarketService extends Base
                 }
             }
         }
+
 
         //创建模块目录
         $fileService->create_dir($targetDir,0777);
