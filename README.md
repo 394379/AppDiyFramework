@@ -7,7 +7,7 @@ QQ群:192683675   现学现卖，大家一块进步！
 
 有前后台
 
-先看演示：http://xmj.yc78.com
+先看演示：http://www.xmjhr.com
 
 安装：
 
