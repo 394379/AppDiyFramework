@@ -89,7 +89,6 @@ CREATE TABLE `yc_plugin` (
   `name` varchar(45) NOT NULL COMMENT '插件名称',
   `description` varchar(45) DEFAULT NULL COMMENT '插件描述',
   `version` varchar(45) NOT NULL COMMENT '插件版本',
-  `menu` varchar(1000) NOT NULL COMMENT '插件菜单',
   `dbscript` text COMMENT 'SQL脚本',
   `create_time` int(11) NOT NULL COMMENT '创建时间',
   `update_time` int(11) NOT NULL COMMENT '更新时间',
